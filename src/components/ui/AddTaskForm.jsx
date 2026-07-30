@@ -12,7 +12,11 @@ const AddTaskForm = ({ setIsModalOpen, addTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.title.trim() || !formData.description.trim() || !formData.createdAt) {
+    if (
+      !formData.title.trim() ||
+      !formData.description.trim() ||
+      !formData.createdAt
+    ) {
       toast.error("Remplissez tous les champs");
       return;
     }
@@ -40,8 +44,8 @@ const AddTaskForm = ({ setIsModalOpen, addTask }) => {
   };
 
   return (
-    <div className="form-task">
-      <form onSubmit={handleSubmit}>
+    <div className="form-task" onClick={() => setIsModalOpen(false)}>
+      <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
         <div className="form-header">
           <h2>Add Task</h2>
           <MdClose
