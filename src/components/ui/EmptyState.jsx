@@ -1,6 +1,6 @@
 import { LuClipboardList } from "react-icons/lu";
 
-const EmptyState = () => {
+const EmptyState = ({ setIsModalOpen, setEditObj }) => {
   return (
     <div className="empty-state">
       <div className="empty-icon">
@@ -10,7 +10,15 @@ const EmptyState = () => {
 
       <p>You don't have any tasks yet. Start by creating your first task.</p>
 
-      <button className="add-task-btn">+ Add Task</button>
+      <button
+        className="add-task-btn"
+        onClick={() => {
+          setIsModalOpen(true);
+          setEditObj(null);
+        }}
+      >
+        + Add Task
+      </button>
     </div>
   );
 };

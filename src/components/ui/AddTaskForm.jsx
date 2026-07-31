@@ -1,14 +1,20 @@
 import { MdClose } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const AddTaskForm = ({ setIsModalOpen, addTask }) => {
+const AddTaskForm = ({ setIsModalOpen, addTask, editObj, editTask }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     status: "pending",
     createdAt: "",
   });
+
+  useEffect(() => {
+    if (editObj) {
+      setFormData(editObj);
+    }
+  }, [editObj]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +34,11 @@ const AddTaskForm = ({ setIsModalOpen, addTask }) => {
       toast.error("Au moins 10 lettres Sur Description");
       return;
     }
-    addTask({ ...formData, id: Date.now() });
+    if (editObj) {
+      editTask(formData);
+    } else {
+      addTask({ ...formData, id: Date.now() });
+    }
     setFormData({
       title: "",
       description: "",
@@ -47,7 +57,7 @@ const AddTaskForm = ({ setIsModalOpen, addTask }) => {
     <div className="form-task" onClick={() => setIsModalOpen(false)}>
       <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
         <div className="form-header">
-          <h2>Add Task</h2>
+          <h2>{editObj ? "Edit Task" : "Add Task"}</h2>
           <MdClose
             className="close-btn"
             onClick={() => setIsModalOpen(false)}
@@ -86,7 +96,7 @@ const AddTaskForm = ({ setIsModalOpen, addTask }) => {
             <option value="completed">Completed</option>
           </select>
         </div>
-        <button type="submit">Add Task</button>
+        <button type="submit">{editObj ? "Edit Task" : "Add Task"}</button>
       </form>
     </div>
   );

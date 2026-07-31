@@ -12,23 +12,24 @@ const Tasks = () => {
       title: "Learn React",
       description: "Practice useState and useEffect",
       status: "pending",
-      createdAt: "27/07/2026",
+      createdAt: "2026-07-27",
     },
     {
       id: 2,
       title: "Learn JS",
       description: "Practice TP",
       status: "completed",
-      createdAt: "27/07/2026",
+      createdAt: "2026-07-20",
     },
     {
       id: 3,
       title: "Learn React Native",
       description: "Practice project",
       status: "pending",
-      createdAt: "27/07/2026",
+      createdAt: "2026-07-26",
     },
   ]);
+  const [editObj, setEditObj] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
@@ -38,12 +39,20 @@ const Tasks = () => {
       (task.status === selectedStatus || selectedStatus === "all")
   );
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
   const addTask = (newTask) => {
-    setTasks([...tasks, newTask]);
+    setTasks((prev) => [...prev, newTask]);
   };
+
+  const editTask = (taskEdit) => {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === taskEdit.id ? taskEdit : task))
+    );
+    setEditObj(null);
+  };
+
   return (
     <div className="tasks-page">
       <div className="task-header">
@@ -51,7 +60,13 @@ const Tasks = () => {
           <h1>Tasks</h1>
           <p>Manage your daily tasks efficiently.</p>
         </div>
-        <button onClick={() => setIsModalOpen(true)} className="add-task-btn">
+        <button
+          onClick={() => {
+            setIsModalOpen(true);
+            setEditObj(null);
+          }}
+          className="add-task-btn"
+        >
           <span>+</span>
           Add Task
         </button>
@@ -68,14 +83,25 @@ const Tasks = () => {
       <div className="tasks">
         {filteredTasks.length > 0 ? (
           filteredTasks.map((task) => (
-            <TaskCard key={task.id} task={task} deleteTask={deleteTask} />
+            <TaskCard
+              key={task.id}
+              task={task}
+              deleteTask={deleteTask}
+              setEditObj={setEditObj}
+              setIsModalOpen={setIsModalOpen}
+            />
           ))
         ) : (
-          <EmptyState />
+          <EmptyState setIsModalOpen={setIsModalOpen} setEditObj={setEditObj} />
         )}
       </div>
       {isModalOpen && (
-        <AddTaskForm addTask={addTask} setIsModalOpen={setIsModalOpen} />
+        <AddTaskForm
+          addTask={addTask}
+          setIsModalOpen={setIsModalOpen}
+          editObj={editObj}
+          editTask={editTask}
+        />
       )}
     </div>
   );

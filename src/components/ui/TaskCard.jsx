@@ -1,4 +1,4 @@
-const TaskCard = ({ task, deleteTask }) => {
+const TaskCard = ({ task, deleteTask, setEditObj, setIsModalOpen }) => {
   const { id, title, description, status, createdAt } = task;
   return (
     <article className="task-card">
@@ -17,7 +17,15 @@ const TaskCard = ({ task, deleteTask }) => {
       </div>
 
       <div className="task-card-actions">
-        <button className="edit-task-btn">Edit</button>
+        <button
+          className="edit-task-btn"
+          onClick={() => {
+            setEditObj(task);
+            setIsModalOpen(true);
+          }}
+        >
+          Edit
+        </button>
 
         <button className="delete-task-btn" onClick={() => deleteTask(id)}>
           Delete
