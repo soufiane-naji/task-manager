@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EmptyState from "../components/ui/EmptyState";
 import SearchBox from "../components/ui/SearchBox";
 import SelectBox from "../components/ui/SelectBox";
@@ -6,29 +6,9 @@ import TaskCard from "../components/ui/TaskCard";
 import AddTaskForm from "../components/ui/AddTaskForm";
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Learn React",
-      description: "Practice useState and useEffect",
-      status: "pending",
-      createdAt: "2026-07-27",
-    },
-    {
-      id: 2,
-      title: "Learn JS",
-      description: "Practice TP",
-      status: "completed",
-      createdAt: "2026-07-20",
-    },
-    {
-      id: 3,
-      title: "Learn React Native",
-      description: "Practice project",
-      status: "pending",
-      createdAt: "2026-07-26",
-    },
-  ]);
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("tasks")) || []
+  );
   const [editObj, setEditObj] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -52,6 +32,10 @@ const Tasks = () => {
     );
     setEditObj(null);
   };
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <div className="tasks-page">

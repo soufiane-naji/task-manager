@@ -12,7 +12,7 @@ const AddTaskForm = ({ setIsModalOpen, addTask, editObj, editTask }) => {
 
   useEffect(() => {
     if (editObj) {
-      setFormData(editObj);
+      setFormData({ ...editObj });
     }
   }, [editObj]);
 
