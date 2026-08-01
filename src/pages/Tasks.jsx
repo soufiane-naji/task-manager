@@ -1,41 +1,32 @@
-import { useEffect, useState } from "react";
 import EmptyState from "../components/ui/EmptyState";
 import SearchBox from "../components/ui/SearchBox";
 import SelectBox from "../components/ui/SelectBox";
 import TaskCard from "../components/ui/TaskCard";
 import AddTaskForm from "../components/ui/AddTaskForm";
+import useTasks from "../hooks/useTasks";
+import { useState } from "react";
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("tasks")) || []
-  );
-  const [editObj, setEditObj] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    tasks,
+    deleteTask,
+    addTask,
+    editTask,
+    editObj,
+    setEditObj,
+
+    isModalOpen,
+    setIsModalOpen,
+  } = useTasks();
+
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
+
   const filteredTasks = tasks.filter(
     (task) =>
       task.title.toLowerCase().includes(search.toLowerCase()) &&
       (task.status === selectedStatus || selectedStatus === "all")
   );
-  const deleteTask = (id) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-  };
-
-  const addTask = (newTask) => {
-    setTasks((prev) => [...prev, newTask]);
-  };
-
-  const editTask = (taskEdit) => {
-    setTasks((prev) =>
-      prev.map((task) => (task.id === taskEdit.id ? taskEdit : task))
-    );
-    setEditObj(null);
-  };
-
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
 
   return (
     <div className="tasks-page">
