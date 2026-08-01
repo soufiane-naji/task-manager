@@ -14,9 +14,9 @@ const Tasks = () => {
     editTask,
     editObj,
     setEditObj,
-
     isModalOpen,
     setIsModalOpen,
+    toggle
   } = useTasks();
 
   const [search, setSearch] = useState("");
@@ -64,6 +64,7 @@ const Tasks = () => {
               deleteTask={deleteTask}
               setEditObj={setEditObj}
               setIsModalOpen={setIsModalOpen}
+              toggle={toggle}
             />
           ))
         ) : (

@@ -26,6 +26,19 @@ const useTasks = () => {
     setEditObj(null);
   };
 
+  const toggle = (id) => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              status: task.status === "pending" ? "completed" : "pending",
+            }
+          : task
+      )
+    );
+  };
+
   return {
     tasks,
     deleteTask,
@@ -35,6 +48,7 @@ const useTasks = () => {
     setEditObj,
     isModalOpen,
     setIsModalOpen,
+    toggle,
   };
 };
 

@@ -1,7 +1,9 @@
-const TaskCard = ({ task, deleteTask, setEditObj, setIsModalOpen }) => {
+import { FaCalendarAlt, FaEdit, FaSyncAlt, FaTrash } from "react-icons/fa";
+
+const TaskCard = ({ task, deleteTask, setEditObj, setIsModalOpen, toggle }) => {
   const { id, title, description, status, createdAt } = task;
   return (
-    <article className="task-card">
+    <article className={`task-card ${status}`}>
       <div className="task-card-content">
         <h3>{title}</h3>
 
@@ -12,7 +14,8 @@ const TaskCard = ({ task, deleteTask, setEditObj, setIsModalOpen }) => {
         <p className="task-description">{description}</p>
 
         <p className="task-date">
-          Created: <span>{createdAt}</span>
+          <FaCalendarAlt />
+          <span>{createdAt}</span>
         </p>
       </div>
 
@@ -24,11 +27,20 @@ const TaskCard = ({ task, deleteTask, setEditObj, setIsModalOpen }) => {
             setIsModalOpen(true);
           }}
         >
+          <FaEdit />
           Edit
         </button>
 
         <button className="delete-task-btn" onClick={() => deleteTask(id)}>
+          <FaTrash />
           Delete
+        </button>
+        <button
+          onClick={() => toggle(id, status)}
+          className={`toggle-task-btn ${status.toLowerCase()}`}
+        >
+          <FaSyncAlt />
+          {status.toLowerCase() == "pending" ? "Mark Complete" : "Mark Pending"}
         </button>
       </div>
     </article>

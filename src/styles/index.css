@@ -420,6 +420,11 @@ body {
   line-height: 1.4;
 }
 
+.task-card.completed h3 {
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+
 /* STATUS */
 .task-status {
   padding: 5px 10px;
@@ -455,6 +460,10 @@ body {
 }
 
 .task-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   color: #94a3b8;
   font-size: 13px;
 }
@@ -468,16 +477,14 @@ body {
 
 .task-card-actions {
   display: flex;
-
-  gap: 10px;
-
   border-top: 1px solid #f1f5f9;
-
   padding-top: 15px;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.edit-task-btn,
-.delete-task-btn {
+.task-card-actions button {
   flex: 1;
 
   padding: 9px 12px;
@@ -509,6 +516,26 @@ body {
 
 .delete-task-btn:hover {
   background: #fecaca;
+}
+
+/* Toggle */
+
+.toggle-task-btn.pending {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.toggle-task-btn.completed {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.toggle-task-btn svg {
+  transition: 0.3s;
+}
+
+.toggle-task-btn:hover svg {
+  transform: rotate(180deg);
 }
 
 /* =========================
