@@ -6,6 +6,7 @@ const useTasks = () => {
   );
   const [editObj, setEditObj] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -49,6 +50,8 @@ const useTasks = () => {
     isModalOpen,
     setIsModalOpen,
     toggle,
+    isConfirmModalOpen,
+    setIsConfirmModalOpen,
   };
 };
 

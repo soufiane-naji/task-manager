@@ -5,6 +5,7 @@ import TaskCard from "../components/ui/TaskCard";
 import AddTaskForm from "../components/ui/AddTaskForm";
 import useTasks from "../hooks/useTasks";
 import { useState } from "react";
+import ConfirmationModal from "../components/ui/ConfirmationModal";
 
 const Tasks = () => {
   const {
@@ -16,11 +17,14 @@ const Tasks = () => {
     setEditObj,
     isModalOpen,
     setIsModalOpen,
-    toggle
+    toggle,
+    isConfirmModalOpen,
+    setIsConfirmModalOpen,
   } = useTasks();
 
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
+  const [idTaskDelete, setIdTaskDelete] = useState(null);
 
   const filteredTasks = tasks.filter(
     (task) =>
@@ -61,10 +65,11 @@ const Tasks = () => {
             <TaskCard
               key={task.id}
               task={task}
-              deleteTask={deleteTask}
               setEditObj={setEditObj}
               setIsModalOpen={setIsModalOpen}
               toggle={toggle}
+              setIsConfirmModalOpen={setIsConfirmModalOpen}
+              setIdTaskDelete={setIdTaskDelete}
             />
           ))
         ) : (
@@ -77,6 +82,13 @@ const Tasks = () => {
           setIsModalOpen={setIsModalOpen}
           editObj={editObj}
           editTask={editTask}
+        />
+      )}
+      {isConfirmModalOpen && (
+        <ConfirmationModal
+          idTaskDelete={idTaskDelete}
+          deleteTask={deleteTask}
+          setIsConfirmModalOpen={setIsConfirmModalOpen}
         />
       )}
     </div>

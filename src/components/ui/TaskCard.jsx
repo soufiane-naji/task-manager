@@ -1,6 +1,13 @@
 import { FaCalendarAlt, FaEdit, FaSyncAlt, FaTrash } from "react-icons/fa";
 
-const TaskCard = ({ task, deleteTask, setEditObj, setIsModalOpen, toggle }) => {
+const TaskCard = ({
+  task,
+  setEditObj,
+  setIsModalOpen,
+  toggle,
+  setIsConfirmModalOpen,
+  setIdTaskDelete,
+}) => {
   const { id, title, description, status, createdAt } = task;
   return (
     <article className={`task-card ${status}`}>
@@ -31,7 +38,13 @@ const TaskCard = ({ task, deleteTask, setEditObj, setIsModalOpen, toggle }) => {
           Edit
         </button>
 
-        <button className="delete-task-btn" onClick={() => deleteTask(id)}>
+        <button
+          className="delete-task-btn"
+          onClick={() => {
+            setIsConfirmModalOpen(true);
+            setIdTaskDelete(id);
+          }}
+        >
           <FaTrash />
           Delete
         </button>
