@@ -2,6 +2,7 @@ import { FaChartLine, FaCheckCircle, FaClock, FaTasks } from "react-icons/fa";
 import StatCard from "../components/ui/StatCard";
 import useTasks from "../hooks/useTasks";
 import { PiHandWavingFill } from "react-icons/pi";
+import RecentTaskCard from "../components/ui/RecentTaskCard";
 
 const Dashboard = () => {
   const { tasks } = useTasks();
@@ -34,7 +35,7 @@ const Dashboard = () => {
       </div>
       <div className="stats-grid">
         <StatCard
-          type=""
+          type="total"
           title="Total Tasks"
           value={nombreTasks}
           icon={<FaTasks />}
@@ -58,6 +59,7 @@ const Dashboard = () => {
           icon={<FaChartLine />}
         />
       </div>
+      <RecentTaskCard tasks={tasks} />
     </div>
   );
 };
