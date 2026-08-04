@@ -6,6 +6,7 @@ import AddTaskForm from "../components/ui/AddTaskForm";
 import useTasks from "../hooks/useTasks";
 import { useState } from "react";
 import ConfirmationModal from "../components/ui/ConfirmationModal";
+import SortBox from "../components/ui/SortBox";
 
 const Tasks = () => {
   const {
@@ -25,12 +26,32 @@ const Tasks = () => {
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [idTaskDelete, setIdTaskDelete] = useState(null);
+  const [sortBy, setSortBy] = useState("newest");
 
-  const filteredTasks = tasks.filter(
-    (task) =>
-      task.title.toLowerCase().includes(search.toLowerCase()) &&
-      (task.status === selectedStatus || selectedStatus === "all")
-  );
+  const filteredTasks = [...tasks]
+    .filter(
+      (task) =>
+        task.title.toLowerCase().includes(search.toLowerCase()) &&
+        (task.status === selectedStatus || selectedStatus === "all")
+    )
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "newest":
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        case "oldest":
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        case "a":
+          return a.title.localeCompare(b.title);
+        case "z":
+          return b.title.localeCompare(a.title);
+        case "completed":
+          return a.status === "completed" ? -1 : 1;
+        case "pending":
+          return a.status === "pending" ? -1 : 1;
+        default:
+          return 0;
+      }
+    });
 
   return (
     <div className="tasks-page">
@@ -57,6 +78,7 @@ const Tasks = () => {
           selectedStatus={selectedStatus}
           setSelectedStatus={setSelectedStatus}
         />
+        <SortBox sortBy={sortBy} setSortBy={setSortBy} />
       </div>
 
       <div className="tasks">
