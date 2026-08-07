@@ -4,7 +4,7 @@ import SelectBox from "../components/ui/SelectBox";
 import TaskCard from "../components/ui/TaskCard";
 import AddTaskForm from "../components/ui/AddTaskForm";
 import useTasks from "../hooks/useTasks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmationModal from "../components/ui/ConfirmationModal";
 import SortBox from "../components/ui/SortBox";
 
@@ -27,6 +27,7 @@ const Tasks = () => {
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [idTaskDelete, setIdTaskDelete] = useState(null);
   const [sortBy, setSortBy] = useState("newest");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredTasks = [...tasks]
     .filter(
@@ -52,6 +53,18 @@ const Tasks = () => {
           return 0;
       }
     });
+
+  const tasksPerPage = 2;
+  const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+
+  const start = currentPage * tasksPerPage - tasksPerPage;
+  const end = currentPage * tasksPerPage;
+
+  const currentTasks = filteredTasks.slice(start, end);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, selectedStatus, sortBy]);
 
   return (
     <div className="tasks-page">
@@ -82,8 +95,8 @@ const Tasks = () => {
       </div>
 
       <div className="tasks">
-        {filteredTasks.length > 0 ? (
-          filteredTasks.map((task) => (
+        {currentTasks.length > 0 ? (
+          currentTasks.map((task) => (
             <TaskCard
               key={task.id}
               task={task}
@@ -97,6 +110,35 @@ const Tasks = () => {
         ) : (
           <EmptyState setIsModalOpen={setIsModalOpen} setEditObj={setEditObj} />
         )}
+      </div>
+      <div className="pagination">
+        <button
+          className={`prev-btn ${currentPage === 1 && "disabled"}`}
+          onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
+        >
+          Previous
+        </button>
+        <div className="pagination-page">
+          {Array(totalPages)
+            .fill(1)
+            .map((el, i) => (
+              <button
+                onClick={() => setCurrentPage(el + i)}
+                className={`page ${currentPage === el + i && "disabled"}`}
+                key={i}
+              >
+                {el + i}
+              </button>
+            ))}
+        </div>
+        <button
+          className={`next-btn ${currentPage === totalPages && "disabled"}`}
+          onClick={() =>
+            setCurrentPage((prev) => (prev !== totalPages ? prev + 1 : prev))
+          }
+        >
+          Next
+        </button>
       </div>
       {isModalOpen && (
         <AddTaskForm
