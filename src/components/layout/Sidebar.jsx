@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { FaCog, FaHome, FaSignOutAlt, FaTasks } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
+  const { logout } = useContext(AuthContext);
+
   const links = [
     {
       path: "/",
@@ -26,15 +30,15 @@ const Sidebar = () => {
         <h2>Task Manager</h2>
       </div>
       <nav className="sidebar-nav">
-        {links.map((lin) => (
-          <NavLink to={lin.path} key={lin.label} className="sidebar-link">
-            {lin.icon}
-            <span>{lin.label}</span>
+        {links.map((link) => (
+          <NavLink to={link.path} key={link.label} className="sidebar-link">
+            {link.icon}
+            <span>{link.label}</span>
           </NavLink>
         ))}
       </nav>
       <div className="sidebar-footer">
-        <button className="logout-btn">
+        <button className="logout-btn" onClick={logout}>
           <FaSignOutAlt />
           <span>Logout</span>
         </button>

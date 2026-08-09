@@ -5,17 +5,50 @@ import Settings from "../pages/Settings";
 import NotFound from "../pages/NotFound";
 import Layout from "../components/layout/Layout";
 import { ToastContainer } from "react-toastify";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import ProtectedRoute from "../components/ui/ProtectedRoute";
 
 const AppRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="tasks" element={<Tasks />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="tasks"
+            element={
+              <ProtectedRoute>
+                <Tasks />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <ProtectedRoute>
+                <NotFound />
+              </ProtectedRoute>
+            }
+          />
         </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <ToastContainer />
     </>
