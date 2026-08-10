@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { SiGoogletasks } from "react-icons/si";
+import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <header className="navbar">
       <div className="navbar-container">
@@ -11,7 +15,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-actions">
-          <span className="user-name">Soufiane</span>
+          <span className="user-name">{user.name}</span>
           <button className="theme-btn">
             <MdOutlineDarkMode className="theme-icon" />
           </button>

@@ -3,8 +3,11 @@ import StatCard from "../components/ui/StatCard";
 import useTasks from "../hooks/useTasks";
 import { PiHandWavingFill } from "react-icons/pi";
 import RecentTaskCard from "../components/ui/RecentTaskCard";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Dashboard = () => {
+  const { user } = useContext(AuthContext);
   const { tasks } = useTasks();
   const nombreTasks = tasks.length;
   const nombreCompleted = tasks.filter(
@@ -24,7 +27,7 @@ const Dashboard = () => {
           <h1>Dashboard</h1>
 
           <p>
-            Welcome back, Soufiane
+            Welcome back, {user.name}
             <PiHandWavingFill className="wave-icon" />
           </p>
 
