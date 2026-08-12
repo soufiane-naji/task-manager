@@ -28,7 +28,7 @@ const TaskCard = ({
 
       <div className="task-card-actions">
         <button
-          className="edit-task-btn"
+          className="btn edit-task-btn"
           onClick={() => {
             setEditObj(task);
             setIsModalOpen(true);
@@ -39,7 +39,7 @@ const TaskCard = ({
         </button>
 
         <button
-          className="delete-task-btn"
+          className="btn delete-task-btn"
           onClick={() => {
             setIsConfirmModalOpen(true);
             setIdTaskDelete(id);
@@ -50,7 +50,7 @@ const TaskCard = ({
         </button>
         <button
           onClick={() => toggle(id, status)}
-          className={`toggle-task-btn ${status.toLowerCase()}`}
+          className={`btn toggle-task-btn ${status.toLowerCase()}`}
         >
           <FaSyncAlt />
           {status.toLowerCase() == "pending" ? "Mark Complete" : "Mark Pending"}

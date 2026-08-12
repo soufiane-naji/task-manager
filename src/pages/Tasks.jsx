@@ -54,7 +54,7 @@ const Tasks = () => {
       }
     });
 
-  const tasksPerPage = 2;
+  const tasksPerPage = 4;
   const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
 
   const start = currentPage * tasksPerPage - tasksPerPage;
@@ -78,7 +78,7 @@ const Tasks = () => {
             setIsModalOpen(true);
             setEditObj(null);
           }}
-          className="add-task-btn"
+          className="btn add-task-btn"
         >
           <span>+</span>
           Add Task
@@ -113,7 +113,7 @@ const Tasks = () => {
       </div>
       <div className="pagination">
         <button
-          className={`prev-btn ${currentPage === 1 && "disabled"}`}
+          className={`btn prev-btn ${currentPage === 1 && "disabled"}`}
           onClick={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
         >
           Previous
@@ -132,7 +132,7 @@ const Tasks = () => {
             ))}
         </div>
         <button
-          className={`next-btn ${currentPage === totalPages && "disabled"}`}
+          className={`btn next-btn ${currentPage === totalPages && "disabled"}`}
           onClick={() =>
             setCurrentPage((prev) => (prev !== totalPages ? prev + 1 : prev))
           }

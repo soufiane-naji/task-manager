@@ -2,10 +2,13 @@ import { useContext } from "react";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { SiGoogletasks } from "react-icons/si";
 import { AuthContext } from "../../context/AuthContext";
+import { ThemeContext } from "../../context/ThemeContext";
+import { CiLight } from "react-icons/ci";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { darkMode, darkWhiteMode } = useContext(ThemeContext);
 
+  const { user } = useContext(AuthContext);
   return (
     <header className="navbar">
       <div className="navbar-container">
@@ -16,8 +19,12 @@ const Navbar = () => {
 
         <div className="navbar-actions">
           <span className="user-name">{user.name}</span>
-          <button className="theme-btn">
-            <MdOutlineDarkMode className="theme-icon" />
+          <button className="btn theme-btn" onClick={darkWhiteMode}>
+            {darkMode ? (
+              <CiLight className="theme-icon" />
+            ) : (
+              <MdOutlineDarkMode className="theme-icon" />
+            )}
           </button>
         </div>
       </div>

@@ -11,7 +11,7 @@ const Settings = () => {
           <h1>Settings</h1>
           <p>Account Information</p>
         </div>
-        <button className="btn-logout" onClick={logout}>
+        <button className="btn btn-logout" onClick={logout}>
           Logout
         </button>
       </div>

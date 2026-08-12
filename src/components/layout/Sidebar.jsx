@@ -38,7 +38,7 @@ const Sidebar = () => {
         ))}
       </nav>
       <div className="sidebar-footer">
-        <button className="logout-btn" onClick={logout}>
+        <button className="btn logout-btn" onClick={logout}>
           <FaSignOutAlt />
           <span>Logout</span>
         </button>

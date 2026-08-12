@@ -14,7 +14,7 @@ const ConfirmationModal = ({
 
   return (
     <div
-      className="task-modal-deleted"
+      className="modal-overlay task-modal-deleted"
       onClick={() => setIsConfirmModalOpen(false)}
     >
       <article onClick={(e) => e.stopPropagation()}>

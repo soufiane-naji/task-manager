@@ -54,7 +54,7 @@ const AddTaskForm = ({ setIsModalOpen, addTask, editObj, editTask }) => {
   };
 
   return (
-    <div className="form-task" onClick={() => setIsModalOpen(false)}>
+    <div className="modal-overlay form-task" onClick={() => setIsModalOpen(false)}>
       <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
         <div className="form-header">
           <h2>{editObj ? "Edit Task" : "Add Task"}</h2>
