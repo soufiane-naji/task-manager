@@ -725,7 +725,7 @@ body {
 }
 
 .form-task form {
-  width: 50%;
+  width: 100%;
   max-width: 700px;
 
   background: var(--surface);
